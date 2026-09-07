@@ -1,157 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>BudgetIQ</title>
-
-<style>
-body, html {
-    margin: 0;
-    height: 100%;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-.bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-1359.jpg");
-    background-size: contain;
-    background-position: center;
-    filter: blur(3px);
-    z-index: -1;
-}
-
-.content {
-    width: 350px;
-    margin: 100px auto;
-    padding: 10px;
-    text-align: center;
-    color: rgb(16, 46, 9);
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 25px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(175, 150, 150, 0.3);
-}
-
-.insights {
-    margin-top: 40px;
-    background: rgb(86, 210, 199);
-    width: 30%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px;
-    border-radius: 50px;
-    text-align: left;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>BudgetIQ - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
 
-<div class="bg"></div>
-
-<div class="content">
-    <h1>BudgetIQ!</h1>
-    <h2 id="userInfo"></h2>   <!-- 👈 ADD THIS -->
+<div class="bg-orbs">
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
 </div>
 
-<div class="insights">
-    <h2>Financial Insights</h2>
-    <ul id="output">
-        <li>Loading...</li>
-    </ul>
+<div class="header">
+    <h1>BudgetIQ</h1>
+    <h2 id="userInfo"></h2>
+</div>
+
+<div class="container">
+    <div class="dashboard-grid">
+        
+        <div class="card">
+            <h2>Financial Insights & History</h2>
+            <ul id="output">
+                <li>Loading...</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Spending Overview</h2>
+            <div class="chart-container">
+                <canvas id="spendingChart"></canvas>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script>
-const { createClient } = supabase;
-
-const supabaseClient = createClient(
-  "https://zialryicqmrtepmojrtj.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppYWxyeWljcW1ydGVwbW9qcnRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3ODA0NTQsImV4cCI6MjA5MjM1NjQ1NH0.lCmb5OmM2oiOhr9FV5UmzSRac51u_7itJ-rRTuV0A30"
-);
-
-const params = new URLSearchParams(window.location.search);
-const userId = params.get("userid");
-
-async function loadData() {
-
-    let output = document.getElementById("output");
-
-    // 🔥 1. Fetch USER NAME
-    const { data: userData } = await supabaseClient
-        .from("users")
-        .select("*")
-        .eq("user_id", userId)
-        .single();
-
-    if (userData) {
-        document.getElementById("userInfo").innerText =
-            "User: " + userData.name + " (ID: " + userId + ")";
-    }
-
-    output.innerHTML = "<li>Loading data...</li>";
-
-    // 🔥 2. Fetch transactions WITH category name
-    const { data, error } = await supabaseClient
-        .from("transactions")
-        .select("*, categories(category_name)")
-        .eq("user_id", userId);
-
-    if (error) {
-        output.innerHTML = "<li style='color:red;'>ERROR: " + error.message + "</li>";
-        return;
-    }
-
-    if (!data || data.length === 0) {
-        output.innerHTML = "<li>No data found</li>";
-        return;
-    }
-
-    let result = "";
-
-    let totalDebit = 0;
-    let totalCredit = 0;
-
-    // 🔥 3. SHOW EACH TRANSACTION (with category + type)
-    data.forEach(t => {
-
-        if (t.type === "debit") totalDebit += t.amount;
-        if (t.type === "credit") totalCredit += t.amount;
-
-        result += `<li>
-            📅 ${t.date} → ₹${t.amount} 
-            (${t.type}) - ${t.categories?.category_name || "Unknown"}
-        </li>`;
-    });
-
-    let balance = totalCredit - totalDebit;
-
-    // 🔥 4. SMART INSIGHTS (based on your SQL logic)
-
-    if (data.length >= 3) {
-        result += "<li>⚠ Impulsive spending detected</li>";
-    }
-
-    if (totalDebit > 5000) {
-        result += "<li>📊 High spending detected</li>";
-    }
-
-    if (balance < 1000) {
-        result += "<li>📉 Low balance at month end</li>";
-    }
-
-    result += `<li>💰 Total Debit: ₹${totalDebit}</li>`;
-    result += `<li>🏦 Balance: ₹${balance}</li>`;
-
-    output.innerHTML = result;
-}
-
-loadData();
-</script>
+<script src="insights.js"></script>
 
 </body>
 </html>

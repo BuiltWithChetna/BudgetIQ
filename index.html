@@ -1,64 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>BudgetIQ!</title>
-
-<style>
-body, html {
-    margin: 0;
-    height: 100%;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-.bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-1359.jpg");
-    background-size: contain;
-    background-position: center;
-    filter: blur(3px);
-    z-index: -1;
-}
-
-.content {
-    width: 350px;
-    margin: 100px auto;
-    padding: 10px;
-    text-align: center;
-    color: rgb(16, 46, 9);
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 25px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(175, 150, 150, 0.3);
-}
-
-button {
-    padding: 10px 20px;
-    background: linear-gradient(135deg,#0a5b3d,#20a04f);
-    color: rgb(14, 52, 39);
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>BudgetIQ - Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="bg"></div>
+<div class="bg-orbs">
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+</div>
 
-<div class="content">
-    <h1>BudgetIQ!</h1>
+<div class="header">
+    <h1>BudgetIQ</h1>
+</div>
 
-    <form action="insights.html">
-        <input type="number" name="userid" placeholder="Enter User ID" required>
-        <button type="submit">Analyze</button>
-    </form>
-
+<div class="container login-wrapper">
+    <div class="card login-card">
+        <h2>Welcome Back</h2>
+        <form action="insights.html">
+            <input type="number" name="userid" placeholder="Enter User ID" required>
+            <button type="submit">Access Dashboard</button>
+        </form>
+    </div>
 </div>
 
 </body>
