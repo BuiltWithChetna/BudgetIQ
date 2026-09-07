@@ -8,10 +8,10 @@ BudgetIQ is a smart web-based application designed to analyze user spending patt
 
 * 📊 Track income and daily expenses
 * 🧠 Financial Behaviour Analysis
-* 📈 Insights dashboard for spending patterns
+* 📈 Visual Insights Dashboard with interactive charts
 * 💡 Categorization of expenses
 * 📉 Helps identify overspending habits
-* 📱 Responsive and clean UI
+* 📱 Modern Glassmorphism UI with responsive design
 
 ---
 
@@ -32,6 +32,7 @@ The core idea of this project is to:
 * HTML
 * CSS
 * JavaScript
+* Chart.js (for data visualization)
 
 ### ⚙️ Backend
 
@@ -58,8 +59,10 @@ The core idea of this project is to:
 
 ## 📂 Project Structure
 
-* `index.html` → Main interface
+* `index.html` → Main interface (Login)
 * `insights.html` → Financial insights dashboard
+* `insights.js` → Logic for fetching Supabase data and rendering Chart.js
+* `style.css` → Global styles including modern glassmorphism UI and animations
 
 ---
 
