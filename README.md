@@ -84,5 +84,5 @@ This project was built to address real-world financial challenges such as:
 
 ## 👩‍💻 Authors
 
-* [Chetana Phalke](https://github.com/chetna196)
+* [Chetana Phalke](https://github.com/BuiltWithChetna)
 * [Gauri Mundada](https://github.com/gourimundada3-stack)
